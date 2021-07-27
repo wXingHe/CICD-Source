@@ -20,3 +20,24 @@ services:
     volumes:
       # - ./etc/httpd:/opt/docker/etc/httpd
       - ../web:/var/www/html
+
+  database:
+    container_name: ${PROJECT_NAME}-database
+    image: mysql:${MYSQL_VERSION}
+    command: mysqld --max_allowed_packet=768M
+    networks:
+      default-network:
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DB_NAME}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    # volumes:
+      # - ../persist-data/db-data:/var/lib/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "10"
