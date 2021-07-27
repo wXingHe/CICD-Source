@@ -49,3 +49,4 @@
 !modules/customer/*
 !profiles/customer/*
 !themes/customer/*
+!sites/default/settings.php
