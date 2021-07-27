@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  default-network:
+    external:
+      name: ${PROJECT_NAME}-network
+
+services: 
+
+  web-server:
+    container_name: ${PROJECT_NAME}-web-server
+    image: "webdevops/php-apache:${PHP_VERSION}-alpine"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      default-network:
+    environment:
+        WEB_DOCUMENT_ROOT: ${DOCUMENT_ROOT}
+    volumes:
+      # - ./etc/httpd:/opt/docker/etc/httpd
+      - ../web:/var/www/html
